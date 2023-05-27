@@ -29,8 +29,8 @@ function UsernameList({ children }: { children: React.ReactNode }) {
 }
 
 const Home: NextPage = () => {
-  const saveToDBMutation = api.example.saveToDB.useMutation();
-  const fetchAllUsersQuery = api.example.fetchAllUsers.useQuery();
+  const saveToDBMutation = api.users.createNewUser.useMutation();
+  const fetchAllUsersQuery = api.users.getAll.useQuery();
   const utils = api.useContext();
 
   function getFakeUserData(): FakeUserData {
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
   function createNewUser() {
     saveToDBMutation.mutate(fakeUserData, {
       onSuccess: () => {
-        void utils.example.invalidate();
+        void utils.users.invalidate();
       },
     });
     setFakeUserData(getFakeUserData());
