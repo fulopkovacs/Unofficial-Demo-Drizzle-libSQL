@@ -1,9 +1,10 @@
-# Experiment with Drizzle ORM and libSQL
+# A setup for using the T3 stack with Drizzle and SQLite (with the `libSQL` driver)
 
-This is an experiment with
+This demo app is using the following stack:
 
-- Drizzle ORM
-- libSQL (fork of SQLite maintained by the Turso team)
+- [T3](https://create.t3.gg/)
+- [Drizzle ORM with the libSQL driver (from Turso)](https://orm.drizzle.team/docs/installation-and-db-connection/sqlite/turso#turso)
+- [SQLite](https://www.sqlite.org/index.html)
 
 ## Setup
 
