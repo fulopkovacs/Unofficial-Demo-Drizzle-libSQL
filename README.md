@@ -6,6 +6,12 @@ This demo app is using the following stack:
 - [Drizzle ORM with the libSQL driver (from Turso)](https://orm.drizzle.team/docs/installation-and-db-connection/sqlite/turso#turso)
 - [SQLite](https://www.sqlite.org/index.html)
 
+
+
+
+https://github.com/fulopkovacs/demo-t3-drizzle-libsql/assets/43729152/af1916fb-fe31-4234-a888-ce105730ba73
+
+
 ## Setup
 
 Install the dependencies:
