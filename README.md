@@ -13,6 +13,20 @@ Install the dependencies:
 pnpm i
 ```
 
+Generate the first db migration:
+
+```bash
+pnpm db.local.generate
+```
+
+Run the first db migration (this will set up the db based on the schema):
+
+```bash
+pnpm db.local.migrate
+```
+
+## Usage
+
 Start the development server:
 
 ```bash
