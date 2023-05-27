@@ -1,9 +1,4 @@
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
 import { migrate } from "drizzle-orm/libsql/migrator";
-import { env } from "~/env.mjs";
+import { drizzleDb } from "~/server/db";
 
-const client = createClient({ url: env.DATABASE_URL });
-const db = drizzle(client);
-
-void migrate(db, { migrationsFolder: "./src/db/migrations" });
+void migrate(drizzleDb, { migrationsFolder: "./src/db/migrations" });

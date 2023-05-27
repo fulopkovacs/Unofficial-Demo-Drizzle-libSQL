@@ -1,8 +1,10 @@
 import { faker } from "@faker-js/faker";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useState, type HTMLAttributes } from "react";
+import { useState, type HTMLAttributes, useEffect } from "react";
 import { api } from "~/utils/api";
+
+type FakeUserData = { firstName: string; lastName: string; email: string };
 
 function Button(
   buttonProps: Omit<HTMLAttributes<HTMLButtonElement>, "className">
@@ -31,14 +33,25 @@ const Home: NextPage = () => {
   const fetchAllUsersQuery = api.example.fetchAllUsers.useQuery();
   const utils = api.useContext();
 
-  function getFakeUserData() {
+  function getFakeUserData(): FakeUserData {
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
     return {
-      fullName: faker.person.firstName(),
-      email: faker.internet.email(),
+      firstName,
+      lastName,
+      email: faker.internet.email({ firstName, lastName }),
     };
   }
 
-  const [fakeUserData, setFakeUserData] = useState(getFakeUserData());
+  const [fakeUserData, setFakeUserData] = useState<FakeUserData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    setFakeUserData(getFakeUserData());
+  }, []);
 
   function createNewUser() {
     saveToDBMutation.mutate(fakeUserData, {
@@ -63,12 +76,15 @@ const Home: NextPage = () => {
         <div className="grid max-w-full  gap-3 sm:max-w-sm">
           {fetchAllUsersQuery.isSuccess && (
             <UsernameList>
-              {fetchAllUsersQuery.data.map((u) => u.fullName).join(", ")}
+              {fetchAllUsersQuery.data
+                .map((u) => `${u.firstName} ${u.lastName}`)
+                .join(", ")}
             </UsernameList>
           )}
           <Button onClick={createNewUser}>Create new fake user</Button>
           <div className="text-neutral-500">
-            {fakeUserData.fullName}, {fakeUserData.email}
+            {`${fakeUserData.firstName} ${fakeUserData.lastName}`},{" "}
+            {fakeUserData.email}
           </div>
           <span className="text-yellow-800">
             last inserted id:{" "}

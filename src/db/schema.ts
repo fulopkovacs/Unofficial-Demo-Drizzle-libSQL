@@ -3,14 +3,16 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const users = sqliteTable("users", {
   id: int("id").primaryKey({ autoIncrement: true }),
-  fullName: text("full_name"),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
   email: text("email"),
 });
 
 // Schema for inserting a user - can be used to validate API requests
 export const insertUserSchema = createInsertSchema(users, {
   id: (s) => s.id,
-  fullName: (s) => s.fullName.min(1),
+  firstName: (s) => s.firstName.min(1),
+  lastName: (s) => s.lastName.min(1),
   email: (s) => s.email.email(),
 });
 

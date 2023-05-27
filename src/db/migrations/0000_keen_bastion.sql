@@ -1,5 +1,6 @@
 CREATE TABLE `users` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`full_name` text,
+	`first_name` text NOT NULL,
+	`last_name` text NOT NULL,
 	`email` text
 );

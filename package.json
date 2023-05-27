@@ -7,6 +7,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
+    "db.local": "usql db.sqlite",
     "db.local.generate": "drizzle-kit generate:sqlite",
     "db.local.migrate": "NODE_ENV=development dotenv -e .env --  tsx ./src/db/migrate.ts"
   },

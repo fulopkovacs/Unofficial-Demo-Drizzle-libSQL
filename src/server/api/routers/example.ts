@@ -1,9 +1,5 @@
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
-
 import { z } from "zod";
 import { apiCreateUser, users } from "~/db/schema";
-import { env } from "~/env.mjs";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
@@ -14,22 +10,20 @@ export const exampleRouter = createTRPCRouter({
         greeting: `Hello ${input.text}`,
       };
     }),
-  fetchAllUsers: publicProcedure.query(async () => {
-    const client = createClient({ url: env.DATABASE_URL });
-    const db = drizzle(client);
-    const allUsers = await db.select().from(users).all();
+  fetchAllUsers: publicProcedure.query(async ({ ctx }) => {
+    const allUsers = await ctx.drizzleDb.select().from(users).all();
 
     return allUsers;
   }),
-  saveToDB: publicProcedure.input(apiCreateUser).mutation(async ({ input }) => {
-    const client = createClient({ url: env.DATABASE_URL });
-    const db = drizzle(client);
-    const res = await db
-      .insert(users)
-      .values(input)
-      .returning({ insertedId: users.id })
-      .all();
+  saveToDB: publicProcedure
+    .input(apiCreateUser)
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.drizzleDb
+        .insert(users)
+        .values(input)
+        .returning({ insertedId: users.id })
+        .all();
 
-    return res;
-  }),
+      return res;
+    }),
 });
