@@ -46,6 +46,12 @@ Start the development server:
 pnpm dev
 ```
 
+Connect to the local db (requires [`usql`](https://github.com/xo/usql), because I like it):
+
+```bash
+pnpm db.local
+```
+
 ## Notes
 
 - The libSQL client from Turso supports SQLite ([source](https://docs.turso.tech/reference/local-development#use-local-sqlite-database-files))
