@@ -13,6 +13,12 @@ Install the dependencies:
 pnpm i
 ```
 
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
 Generate the first db migration:
 
 ```bash
