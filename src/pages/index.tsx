@@ -70,6 +70,10 @@ const Home: NextPage = () => {
           <div className="text-neutral-500">
             {fakeUserData.fullName}, {fakeUserData.email}
           </div>
+          <span className="text-yellow-800">
+            last inserted id:{" "}
+            {saveToDBMutation.data && saveToDBMutation.data[0]?.insertedId}
+          </span>
         </div>
       </main>
     </>

@@ -24,8 +24,11 @@ export const exampleRouter = createTRPCRouter({
   saveToDB: publicProcedure.input(apiCreateUser).mutation(async ({ input }) => {
     const client = createClient({ url: env.DATABASE_URL });
     const db = drizzle(client);
-    const res = await db.insert(users).values(input).all();
-    console.log(res);
+    const res = await db
+      .insert(users)
+      .values(input)
+      .returning({ insertedId: users.id })
+      .all();
 
     return res;
   }),
